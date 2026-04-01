@@ -9,7 +9,6 @@ import java.util.List;
 public class SimpleEventBus implements EventPublisher {
     private final List<EventSubscriber> subscribers = new ArrayList<>();
     
-    // For web frontend pulling events
     private final List<DomainEvent> recentEvents = new ArrayList<>();
 
     public void subscribe(EventSubscriber subscriber) {

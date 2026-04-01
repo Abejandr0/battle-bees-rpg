@@ -8,7 +8,6 @@ public class AchievementSystem implements EventSubscriber {
     private final Map<String, Achievement> achievements;
     private final EventPublisher publisher;
 
-    // Tracking stats
     private int criticalHits = 0;
     private int totalWins = 0;
     private int consecutiveWinsWithBuffsOnly = 0;
@@ -66,13 +65,11 @@ public class AchievementSystem implements EventSubscriber {
             unlock("unbreakable");
         }
 
-        if (event.getHighestDamageDealt() >= 200) { // Assuming 100 is base HP
+        if (event.getHighestDamageDealt() >= 200) {
             unlock("overkill");
         }
 
         if (event.getTotalBuffsUsed() > 0 && event.getHighestDamageDealt() < 50) {
-            // Simplified logic: used buffs, but damage wasn't primarily from base attacks (simulation of 'only buffs')
-            // To be precise with "only buffs", we just track if buffs were used
             consecutiveWinsWithBuffsOnly++;
             if (consecutiveWinsWithBuffsOnly >= 3) {
                 unlock("hive_mind");

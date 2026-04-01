@@ -79,7 +79,26 @@ function processEvents(events) {
             
             lastCritAttacker = null;
         }
+
+        // MatchWonEvent
+        if (evt.winningHeroClass) {
+            triggerMatchWonDisplay();
+        }
     });
+}
+
+function triggerMatchWonDisplay() {
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay result-overlay';
+    overlay.style.zIndex = '200';
+    overlay.innerHTML = `
+        <div class="intro-box" style="border-color: #2ecc71; box-shadow: 0 0 30px rgba(46, 204, 113, 0.4);">
+            <h1 style="color: #2ecc71; font-size: 4rem;">VICTORY</h1>
+            <p style="font-size: 1.5rem; margin-bottom: 20px;">Enemy Hive Guard eliminated.</p>
+            <button onclick="this.closest('.result-overlay').remove()" style="font-size: 1.2rem; padding: 15px 30px;">CONTINUE</button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
 }
 
 function triggerAttackAnimation(side) {
