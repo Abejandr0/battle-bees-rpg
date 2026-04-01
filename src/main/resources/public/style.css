@@ -313,6 +313,107 @@ header h1 {
     background-color: rgba(255, 0, 0, 0.2) !important;
 }
 
+/* Layered Character System */
+.character-visual {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px auto;
+}
+
+.layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.buff-overlay {
+    box-shadow: 0 0 20px 10px rgba(52, 152, 219, 0) inset;
+    transition: box-shadow 0.5s;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.buff-glow {
+    box-shadow: 0 0 30px 15px rgba(52, 152, 219, 0.6) inset;
+    animation: pulse-glow 2s infinite alternate;
+}
+
+@keyframes pulse-glow {
+    0% { filter: brightness(1) drop-shadow(0 0 5px rgba(52, 152, 219, 0.5)); }
+    100% { filter: brightness(1.3) drop-shadow(0 0 15px rgba(52, 152, 219, 1)); }
+}
+
+/* Floating Damage System */
+.damage-container {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 1px;
+    height: 1px;
+    z-index: 10;
+}
+
+.floating-text {
+    position: absolute;
+    left: -20px;
+    bottom: 0px;
+    font-size: 24px;
+    font-family: 'Teko', sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px black;
+    pointer-events: none;
+    animation: float-up 1.5s forwards ease-out;
+}
+
+.dmg-normal { color: #ff5555; }
+.dmg-critical { color: #f1c40f; font-size: 36px; animation: crit-float 2s forwards ease-out; }
+.dmg-buff { color: #3498db; }
+
+@keyframes float-up {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(-60px) scale(0.8); opacity: 0; }
+}
+
+@keyframes crit-float {
+    0% { transform: translateY(0) scale(1.5); opacity: 1; text-shadow: 0 0 10px #f1c40f, 1px 1px 3px black; }
+    10% { transform: translateY(-5px) scale(2); }
+    80% { opacity: 1; }
+    100% { transform: translateY(-80px) scale(1); opacity: 0; }
+}
+
+/* Combat Animations */
+.anim-slash {
+    animation: slash 0.3s forwards ease-in-out;
+}
+@keyframes slash {
+    0% { transform: translateX(0) rotate(0deg); filter: brightness(1); }
+    50% { transform: translateX(30px) rotate(15deg); filter: brightness(1.5) drop-shadow(5px 0 5px rgba(200, 200, 200, 0.8)); }
+    100% { transform: translateX(0) rotate(0deg); filter: brightness(1); }
+}
+
+.anim-projectile {
+    animation: projectile 0.5s forwards;
+}
+@keyframes projectile {
+    0% { transform: translateX(0); filter: hue-rotate(0deg); }
+    50% { transform: translateX(40px) scale(1.1); filter: hue-rotate(90deg) drop-shadow(10px 0 10px rgba(50, 150, 255, 0.8)); }
+    100% { transform: translateX(0); filter: hue-rotate(0deg); }
+}
+
+.anim-dash {
+    animation: dash 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes dash {
+    0% { transform: translateX(0); opacity: 1; filter: blur(0px); }
+    30% { transform: translateX(60px); opacity: 0.5; filter: blur(2px); }
+    100% { transform: translateX(0); opacity: 1; filter: blur(0px); }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: #0a0e0a; }

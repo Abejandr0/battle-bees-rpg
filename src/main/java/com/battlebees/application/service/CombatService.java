@@ -11,8 +11,8 @@ public class CombatService {
     private final GameContext context;
     private final EventPublisher publisher;
     private final Random random = new Random();
+    private final EnemyAIService enemyAIService;
 
-    // Stats for MatchWonEvent
     private boolean tookDamageThisMatch = false;
     private int buffsUsedThisMatch = 0;
     private int highestDamageDealt = 0;
@@ -20,6 +20,7 @@ public class CombatService {
     public CombatService(GameContext context, EventPublisher publisher) {
         this.context = context;
         this.publisher = publisher;
+        this.enemyAIService = new EnemyAIService(publisher);
     }
 
     public void startNewMatch() {
@@ -43,12 +44,16 @@ public class CombatService {
         processAttack(player, enemy, true);
 
         if (!enemy.isDead()) {
-            processAttack(enemy, player, false);
+            int initialHealth = player.getHealth();
+            enemyAIService.processEnemyAction(context);
+            if (context.getPlayerHero().getHealth() < initialHealth) {
+                tookDamageThisMatch = true;
+            }
         }
 
-        Hero cleanedPlayer = processBuffExpiration(player);
+        Hero cleanedPlayer = processBuffExpiration(context.getPlayerHero());
         context.setPlayerHero(cleanedPlayer);
-        Hero cleanedEnemy = processBuffExpiration(enemy);
+        Hero cleanedEnemy = processBuffExpiration(context.getEnemyHero());
         context.setEnemyHero(cleanedEnemy);
         
         if (context.getPlayerHero().isDead()) {

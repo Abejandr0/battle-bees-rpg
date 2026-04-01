@@ -38,6 +38,12 @@
             <div class="combatant" id="playerSide">
                 <h2 id="playerName">Player</h2>
                 <div class="class-badge" id="playerClass">Class</div>
+                <div class="character-visual" id="playerVisual">
+                    <img id="playerBaseLayer" src="assets/characters/warrior_base.png" class="layer base-layer" alt="Player Base">
+                    <img id="playerWeaponLayer" src="" class="layer weapon-layer" style="display:none;" alt="Weapon Overlay">
+                    <div id="playerBuffOverlay" class="layer buff-overlay" style="display:none;"></div>
+                    <div id="playerDamageContainer" class="damage-container"></div>
+                </div>
                 <div class="health-bar-container">
                     <div class="health-bar" id="playerHealthBar"></div>
                     <span class="health-text" id="playerHealthText">100/100</span>
@@ -56,6 +62,12 @@
             <div class="combatant enemy" id="enemySide">
                 <h2 id="enemyName">Enemy</h2>
                 <div class="class-badge" id="enemyClass">Class</div>
+                <div class="character-visual" id="enemyVisual">
+                    <img id="enemyBaseLayer" src="assets/enemies/enemy_bee_soldier.png" class="layer base-layer" alt="Enemy Base">
+                    <img id="enemyWeaponLayer" src="" class="layer weapon-layer" style="display:none;" alt="Weapon Overlay">
+                    <div id="enemyBuffOverlay" class="layer buff-overlay" style="display:none;"></div>
+                    <div id="enemyDamageContainer" class="damage-container"></div>
+                </div>
                 <div class="health-bar-container">
                     <div class="health-bar" id="enemyHealthBar"></div>
                     <span class="health-text" id="enemyHealthText">100/100</span>
